@@ -68,4 +68,7 @@ public class Cart {
     public void setLineItem(Set<LineItem> lineItem) {
         this.lineItem = lineItem;
     }
+    public Long getCustomerIdToCart(Customer customer){
+        return customer.getId();
+    }
 }

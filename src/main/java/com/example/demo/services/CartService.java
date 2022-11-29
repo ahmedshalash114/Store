@@ -3,6 +3,7 @@ import com.example.demo.DTO.Request.CartRequest;
 import com.example.demo.DTO.Response.CartResponse;
 import com.example.demo.Repository.CartRepository;
 import com.example.demo.Tables.Cart;
+import com.example.demo.Tables.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
@@ -46,5 +47,12 @@ public class CartService {
     if(request.getCreatedDate().isBefore(LocalDate.now()) || request.getCreatedDate().isEqual(LocalDate.now()))
         cart.setCreatedDate(request.getCreatedDate());
     cartRepository.save(cart);
+    }
+    public void createCartForCustomer(Customer customer){
+        Cart cart=new Cart();
+        cart.setCustomer(customer);
+        cart.setCreatedDate(LocalDate.now());
+        cart.setTotalPrice(0);
+        cartRepository.save(cart);
     }
 }
