@@ -9,6 +9,8 @@ public class Product {
     private String name;
     private int price;
     private String description;
+
+
     public Product() {
     }
     public Product(String name, int price, String description) {

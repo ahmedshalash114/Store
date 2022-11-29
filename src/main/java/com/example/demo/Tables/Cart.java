@@ -1,15 +1,23 @@
 package com.example.demo.Tables;
+import org.hibernate.engine.internal.Cascade;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 @Entity
 @Table
 public class Cart {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate createdDate;
     private int totalPrice;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customerId")
+    private Customer customer;
+
     public Cart() {
     }
     public Cart(LocalDate createdDate, int totalPrice) {
