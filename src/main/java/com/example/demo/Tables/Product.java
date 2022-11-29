@@ -1,5 +1,7 @@
 package com.example.demo.Tables;
 import javax.persistence.*;
+import java.util.Set;
+
 @Entity
 @Table
 public class Product {
@@ -10,6 +12,8 @@ public class Product {
     private int price;
     private String description;
 
+    @OneToMany(mappedBy = "product")
+    private Set<LineItem> lineItem;
 
     public Product() {
     }
@@ -47,5 +51,13 @@ public class Product {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<LineItem> getLineItem() {
+        return lineItem;
+    }
+
+    public void setLineItem(Set<LineItem> lineItem) {
+        this.lineItem = lineItem;
     }
 }

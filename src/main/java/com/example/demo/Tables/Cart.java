@@ -4,6 +4,8 @@ import org.hibernate.engine.internal.Cascade;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
+
 @Entity
 @Table
 public class Cart {
@@ -17,6 +19,9 @@ public class Cart {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customerId")
     private Customer customer;
+
+    @OneToMany(mappedBy = "cart")
+    private Set<LineItem> lineItem;
 
     public Cart() {
     }
@@ -41,12 +46,26 @@ public class Cart {
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
-
     public LocalDate getCreatedDate() {
         return createdDate;
     }
-
     public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Set<LineItem> getLineItem() {
+        return lineItem;
+    }
+
+    public void setLineItem(Set<LineItem> lineItem) {
+        this.lineItem = lineItem;
     }
 }
