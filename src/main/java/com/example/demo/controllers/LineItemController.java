@@ -1,8 +1,8 @@
 package com.example.demo.controllers;
 
 import com.example.demo.DTO.Request.LineItemRequest;
+import com.example.demo.DTO.Request.ProductLineItemRequest;
 import com.example.demo.DTO.Response.LineItemResponse;
-import com.example.demo.Tables.LineItem;
 import com.example.demo.services.LineItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +22,8 @@ public class LineItemController {
         return new ResponseEntity<>(lineItemService.getLineItem(lineItemId), HttpStatus.OK);
     }
     @PostMapping
-    public void postLineItem(@RequestBody LineItemRequest lineItemRequest){
-        lineItemService.postLineItem(lineItemRequest);
+    public void postLineItem(@RequestBody ProductLineItemRequest productLineItemRequest){
+        lineItemService.postLineItem(productLineItemRequest);
     }
     @DeleteMapping("/{lineItemId}")
     public void deleteLineItem(@PathVariable Long lineItemId){

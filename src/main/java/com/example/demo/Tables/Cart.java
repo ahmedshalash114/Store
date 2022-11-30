@@ -1,11 +1,7 @@
 package com.example.demo.Tables;
-import org.hibernate.engine.internal.Cascade;
-
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Set;
-
+import java.util.List;
 @Entity
 @Table
 public class Cart {
@@ -21,7 +17,7 @@ public class Cart {
     private Customer customer;
 
     @OneToMany(mappedBy = "cart")
-    private Set<LineItem> lineItem;
+    private List<LineItem> lineItem;
 
     public Cart() {
     }
@@ -61,11 +57,11 @@ public class Cart {
         this.customer = customer;
     }
 
-    public Set<LineItem> getLineItem() {
+    public List<LineItem> getLineItem() {
         return lineItem;
     }
 
-    public void setLineItem(Set<LineItem> lineItem) {
+    public void setLineItem(List<LineItem> lineItem) {
         this.lineItem = lineItem;
     }
     public Long getCustomerIdToCart(Customer customer){

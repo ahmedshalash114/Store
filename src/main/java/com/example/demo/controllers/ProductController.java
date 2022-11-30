@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 import com.example.demo.DTO.Request.ProductLineItemRequest;
 import com.example.demo.DTO.Request.ProductRequest;
 import com.example.demo.DTO.Response.ProductResponse;
-import com.example.demo.Tables.Product;
 import com.example.demo.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
