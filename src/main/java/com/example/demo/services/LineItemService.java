@@ -51,6 +51,9 @@ public class LineItemService {
     lineItemRepository.save(lineItem);
     }
     public void putProductInLineItem(ProductLineItemRequest request) {
+    if(!productRepository.existsById(request.getProductId()))
+        throw new IllegalStateException("Product with id"+request.getProductId()+" doesn't exist");
+
     LineItem lineItem=new LineItem();
     Product product=productRepository.findById(request.getProductId()).get();
     lineItem.setProduct(product);
