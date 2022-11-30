@@ -1,4 +1,5 @@
 package com.example.demo.controllers;
+import com.example.demo.DTO.Request.ProductLineItemRequest;
 import com.example.demo.DTO.Request.ProductRequest;
 import com.example.demo.DTO.Response.ProductResponse;
 import com.example.demo.Tables.Product;
@@ -22,7 +23,13 @@ public class ProductController {
      return new ResponseEntity<>(productService.getProduct(productId), HttpStatus.OK);
     }
     @PostMapping
-    public void postProduct(@RequestBody ProductRequest request){productService.postProduct(request);}
+    public void postProduct(@RequestBody ProductRequest productRequest){
+     productService.postProduct(productRequest);}
+
+    @PostMapping("/{lineItemId}")
+    public void postProductInLineItem(@RequestBody ProductLineItemRequest LineItemRequest){
+     productService.postProductInLineItem(LineItemRequest);
+    }
 
     @DeleteMapping("/{productId}")
     public void deleteProduct(@PathVariable Long productId){
