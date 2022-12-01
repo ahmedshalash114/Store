@@ -65,9 +65,12 @@ public class LineItemService {
         lineItem.setProduct(product);
         lineItem.setQuantity(productLineItemRequest.getQuantity());
 
+        putLineItemInCart(productLineItemRequest, lineItem);
+        lineItemRepository.save(lineItem);
+    }
+
+    private void putLineItemInCart(ProductLineItemRequest productLineItemRequest, LineItem lineItem) {
         Cart cart=  cartRepository.findById(productLineItemRequest.getCartId()).get();
         lineItem.setCart(cart);
-
-        lineItemRepository.save(lineItem);
     }
 }
