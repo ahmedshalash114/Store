@@ -1,6 +1,7 @@
 package com.example.demo.Tables;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -9,6 +10,14 @@ public class LineItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int quantity;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cartId")
+    private Cart cart;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "productId")
+    private Product product;
 
     public LineItem() {
     }
@@ -36,5 +45,21 @@ public class LineItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

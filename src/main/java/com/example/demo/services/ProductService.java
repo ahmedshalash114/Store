@@ -1,20 +1,22 @@
 package com.example.demo.services;
 import com.example.demo.DTO.Request.ProductRequest;
+import com.example.demo.DTO.Request.ProductLineItemRequest;
 import com.example.demo.DTO.Response.ProductResponse;
 import com.example.demo.Repository.ProductRepository;
 import com.example.demo.Tables.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
+    private final LineItemService lineItemService;
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, LineItemService lineItemService) {
         this.productRepository = productRepository;
+        this.lineItemService = lineItemService;
     }
     public ProductResponse getProduct(Long productId) {
         boolean exist=productRepository.existsById(productId);
@@ -26,15 +28,15 @@ public class ProductService {
         response.setPrice(product.getPrice());
         return response;
     }
-    public void postProduct(ProductRequest request) {
-        Product product= new Product();
+    public void postProduct(ProductRequest productRequest) {
         Optional<Product> productOptional=productRepository
-                .findProductByName(request.getName());
+                .findProductByName(productRequest.getName());
         if(productOptional.isPresent())
             throw new IllegalStateException("This product is already here");
-        product.setName(request.getName());
-        product.setPrice(request.getPrice());
-        product.setDescription(request.getDescription());
+
+        Product product= new Product();
+        product.setName(productRequest.getName());
+        product.setPrice(productRequest.getPrice());
         productRepository.save(product);
     }
     public void deleteProduct(Long productId) {
@@ -59,7 +61,9 @@ public class ProductService {
         }
         if(request.getPrice()>0)
             product.setPrice(request.getPrice());
-        product.setDescription(request.getDescription());
         productRepository.save(product);
+    }
+    public void postProductInLineItem(ProductLineItemRequest lineItemRequest) {
+        lineItemService.putProductInLineItem(lineItemRequest);
     }
 }

@@ -21,9 +21,7 @@ public class CustomerController {
         return new ResponseEntity<> (customerService.getCustomer(customerId), HttpStatus.OK);
     }
     @PostMapping
-    public void postCustomer(@RequestBody CustomerRequest request){
-        customerService.postCustomer(request);
-    }
+    public void postCustomer(@RequestBody CustomerRequest request){customerService.postCustomer(request);}
 
     @DeleteMapping(path = "{customerId}")
     public void deleteCustomer(@PathVariable("customerId") Long customerId){

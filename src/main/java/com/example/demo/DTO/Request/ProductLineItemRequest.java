@@ -1,6 +1,7 @@
 package com.example.demo.DTO.Request;
 
-public class LineItemRequest {
+public class ProductLineItemRequest {
+    private Long cartId;
     private Long productId;
     private int quantity;
     public int getQuantity() {
@@ -17,5 +18,13 @@ public class LineItemRequest {
 
     public void setProductId(Long productId) {
         this.productId = productId;
+    }
+
+    public Long getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
     }
 }

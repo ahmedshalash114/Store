@@ -4,6 +4,7 @@ import com.example.demo.DTO.Request.CustomerRequest;
 import com.example.demo.DTO.Response.CustomerResponse;
 import com.example.demo.Repository.CustomerRepository;
 import com.example.demo.Tables.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -11,10 +12,13 @@ import java.util.Optional;
 
 @Service
 public class CustomerService {
-    private final CustomerRepository customerRepository;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    private final CustomerRepository customerRepository;
+    private final CartService cartService;
+    @Autowired
+    public CustomerService(CustomerRepository customerRepository, CartService cartService) {
         this.customerRepository = customerRepository;
+        this.cartService = cartService;
     }
     public CustomerResponse getCustomer(Long customerId) {
         boolean exist=customerRepository.existsById(customerId);
@@ -34,6 +38,7 @@ public class CustomerService {
             throw new IllegalStateException("This email is taken");
 
         Customer customer= new Customer();
+        cartService.createCartForCustomer(customer);
         customer.setName(request.getName());
         customer.setEmail(request.getEmail());
         customer.setPassword(request.getPassword());
