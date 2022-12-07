@@ -1,18 +1,15 @@
 package com.example.demo.services;
-
 import com.example.demo.DTO.Request.CustomerRequest;
 import com.example.demo.DTO.Response.CustomerResponse;
 import com.example.demo.Repository.CustomerRepository;
 import com.example.demo.Tables.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class CustomerService {
-
     private final CustomerRepository customerRepository;
     private final CartService cartService;
     @Autowired
@@ -23,7 +20,7 @@ public class CustomerService {
     public CustomerResponse getCustomer(Long customerId) {
         boolean exist=customerRepository.existsById(customerId);
         if (!exist)
-            throw  new IllegalStateException("Customer with id "+customerId+" doesn't exist");
+            throw new IllegalStateException("Customer with id "+customerId+" doesn't exist");
 
         CustomerResponse response = new CustomerResponse();
         Customer customer = customerRepository.findById(customerId).get();
