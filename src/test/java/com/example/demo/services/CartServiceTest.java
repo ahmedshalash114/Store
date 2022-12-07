@@ -26,9 +26,9 @@ import static org.mockito.Mockito.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
 class CartServiceTest {
-    @Mock CartRepository cartRepository;
-    CartResponse cartResponse;
-    @InjectMocks CartService underTest;
+    @Mock private CartRepository cartRepository;
+    private CartResponse cartResponse;
+    @InjectMocks private CartService underTest;
 
     @BeforeEach
     void setUp() {
