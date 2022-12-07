@@ -59,14 +59,13 @@ class CustomerServiceTest {
         @Test
         void willThrowWhenCustomerDoesNotFoundWhenGet() {
             Long customerId = 10L;
-            assumeFalse(customerRepository.existsById(customerId));
+            given(customerRepository.existsById(any())).willReturn(false);
             assertThatThrownBy(() -> underTest.getCustomer(customerId))
                     .isInstanceOf(IllegalStateException.class)
                     .hasMessageContaining("Customer with id " + customerId + " doesn't exist");
             verify(customerRepository, never()).findById(customerId);
         }
     }
-
     @Nested
     class whenPost {
         @Test
@@ -93,10 +92,9 @@ class CustomerServiceTest {
         }
 
         @Test
-        void willThrowWhenCustomerDoesNotFoundWhenPost() {
-            CustomerRequest request=new CustomerRequest();
-            assumeTrue(customerRepository.findCustomerByEmail(request.getEmail()).isPresent());
-            assertThatThrownBy(() -> underTest.postCustomer(request))
+        void willThrowWhenCustomerFoundWhenPost() {
+           given(customerRepository.findCustomerByEmail(any())).willReturn(Optional.of(new Customer()));
+            assertThatThrownBy(() -> underTest.postCustomer(new CustomerRequest()))
                     .isInstanceOf(IllegalStateException.class)
                     .hasMessageContaining("This email is taken");
             verify(customerRepository,never()).save(any());
@@ -117,7 +115,7 @@ class CustomerServiceTest {
         @Test
         void willThrowWhenCustomerDoesNotFoundWhenDelete() {
             Long customerId = 10L;
-            assumeFalse(customerRepository.existsById(customerId));
+            given(customerRepository.existsById(customerId)).willReturn(false);
             assertThatThrownBy(() -> underTest.deleteCustomer(customerId))
                     .isInstanceOf(IllegalStateException.class)
                     .hasMessageContaining("Customer with id " + customerId + " doesn't exist");
@@ -159,7 +157,7 @@ class CustomerServiceTest {
         @Test
         void willThrowWhenCustomerDoesNotFoundWhenUpdate() {
             Customer customer = new Customer(100L, "Hassan", "hassan@gmail.com", "password");
-            assertThatThrownBy(() -> underTest.updateCustomer(customer.getId(), customerRequest))
+            assertThatThrownBy(() -> underTest.updateCustomer(customer.getId(),new CustomerRequest()))
                     .isInstanceOf(IllegalStateException.class)
                     .hasMessageContaining("Customer with id " + customer.getId() + " doesn't exist");
             verify(customerRepository, never()).save(any());
