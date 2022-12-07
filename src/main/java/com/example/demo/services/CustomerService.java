@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Service
 public class CustomerService {
-
     private final CustomerRepository customerRepository;
     private final CartService cartService;
     @Autowired
@@ -21,7 +20,7 @@ public class CustomerService {
     public CustomerResponse getCustomer(Long customerId) {
         boolean exist=customerRepository.existsById(customerId);
         if (!exist)
-            throw  new IllegalStateException("Customer with id "+customerId+" doesn't exist");
+            throw new IllegalStateException("Customer with id "+customerId+" doesn't exist");
 
         CustomerResponse response = new CustomerResponse();
         Customer customer = customerRepository.findById(customerId).get();
