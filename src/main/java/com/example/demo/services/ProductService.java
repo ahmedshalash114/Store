@@ -6,7 +6,6 @@ import com.example.demo.Repository.ProductRepository;
 import com.example.demo.Tables.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
@@ -33,32 +32,22 @@ public class ProductService {
                 .findProductByName(productRequest.getName());
         if(productOptional.isPresent())
             throw new IllegalStateException("This product is already here");
-
         Product product= new Product();
         product.setName(productRequest.getName());
         product.setPrice(productRequest.getPrice());
         productRepository.save(product);
     }
     public void deleteProduct(Long productId) {
-        Product product= productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalStateException(
-                        "Product with id " + productId + " doesn't exist"
-                ));
-        productRepository.delete(product);
+        boolean exist=productRepository.existsById(productId);
+        if(!exist)
+            throw new IllegalStateException("Product with id "+productId+" doesn't exist");
+        productRepository.deleteById(productId);
     }
     public void updateProduct(Long productId, ProductRequest request) {
         Product product= productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalStateException(
-                        "Product with id " + productId + " doesn't exist"
-                ));
-        Optional<Product> productOptional=productRepository
-                .findProductByName(request.getName());
-        if(productOptional.isPresent())
-            throw new IllegalStateException("This product is already here");
-        if(request.getName()!=null &&
-                request.getName().length()>0){
+                .orElseThrow(() -> new IllegalStateException("Product with id " + productId + " doesn't exist"));
+        if(request.getName()!=null && request.getName().length()>0)
             product.setName(request.getName());
-        }
         if(request.getPrice()>0)
             product.setPrice(request.getPrice());
         productRepository.save(product);

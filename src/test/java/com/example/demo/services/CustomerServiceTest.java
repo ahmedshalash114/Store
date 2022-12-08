@@ -28,10 +28,9 @@ class CustomerServiceTest {
     private CustomerService underTest;
     @Mock
     private CustomerRepository customerRepository;
-    @Mock
-    private CartService cartService;
-    private CustomerResponse customerResponse;
-    private CustomerRequest customerRequest;
+    @Mock private CartService cartService;
+    @Mock private CustomerResponse customerResponse;
+    @Mock private CustomerRequest customerRequest;
 
     @BeforeEach
     void setUp() {
@@ -85,7 +84,6 @@ class CustomerServiceTest {
             ArgumentCaptor<Customer> customerArgumentCaptor = ArgumentCaptor.forClass(Customer.class);
             verify(customerRepository).save(customerArgumentCaptor.capture());
             Customer capturedCustomer = customerArgumentCaptor.getValue();
-            assertEquals(capturedCustomer.getId(), customer.getId());
             assertEquals(capturedCustomer.getName(), customer.getName());
             assertEquals(capturedCustomer.getEmail(), customer.getEmail());
             assertEquals(capturedCustomer.getPassword(), customer.getPassword());
@@ -93,7 +91,7 @@ class CustomerServiceTest {
 
         @Test
         void willThrowWhenCustomerFoundWhenPost() {
-           given(customerRepository.findCustomerByEmail(any())).willReturn(Optional.of(new Customer()));
+           when(customerRepository.findCustomerByEmail(any())).thenReturn(Optional.of(new Customer()));
             assertThatThrownBy(() -> underTest.postCustomer(new CustomerRequest()))
                     .isInstanceOf(IllegalStateException.class)
                     .hasMessageContaining("This email is taken");
@@ -156,10 +154,10 @@ class CustomerServiceTest {
 
         @Test
         void willThrowWhenCustomerDoesNotFoundWhenUpdate() {
-            Customer customer = new Customer(100L, "Hassan", "hassan@gmail.com", "password");
-            assertThatThrownBy(() -> underTest.updateCustomer(customer.getId(),new CustomerRequest()))
+            Long customerId=100L;
+            assertThatThrownBy(() -> underTest.updateCustomer(customerId,new CustomerRequest()))
                     .isInstanceOf(IllegalStateException.class)
-                    .hasMessageContaining("Customer with id " + customer.getId() + " doesn't exist");
+                    .hasMessageContaining("Customer with id " + customerId + " doesn't exist");
             verify(customerRepository, never()).save(any());
         }
     }
