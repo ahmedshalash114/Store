@@ -1,4 +1,4 @@
-package com.example.demo.Tables;
+package com.example.demo.entity;
 import javax.persistence.*;
 import java.util.Set;
 

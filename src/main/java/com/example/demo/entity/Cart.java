@@ -1,7 +1,8 @@
-package com.example.demo.Tables;
+package com.example.demo.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+
 @Entity
 @Table
 public class Cart {

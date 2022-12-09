@@ -2,7 +2,7 @@ package com.example.demo.services;
 import com.example.demo.DTO.Request.CustomerRequest;
 import com.example.demo.DTO.Response.CustomerResponse;
 import com.example.demo.Repository.CustomerRepository;
-import com.example.demo.Tables.Customer;
+import com.example.demo.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Objects;

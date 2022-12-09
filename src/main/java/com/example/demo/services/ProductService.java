@@ -3,7 +3,7 @@ import com.example.demo.DTO.Request.ProductRequest;
 import com.example.demo.DTO.Request.ProductLineItemRequest;
 import com.example.demo.DTO.Response.ProductResponse;
 import com.example.demo.Repository.ProductRepository;
-import com.example.demo.Tables.Product;
+import com.example.demo.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;

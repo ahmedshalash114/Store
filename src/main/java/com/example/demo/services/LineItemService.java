@@ -5,9 +5,9 @@ import com.example.demo.DTO.Response.LineItemResponse;
 import com.example.demo.Repository.CartRepository;
 import com.example.demo.Repository.LineItemRepository;
 import com.example.demo.Repository.ProductRepository;
-import com.example.demo.Tables.Cart;
-import com.example.demo.Tables.LineItem;
-import com.example.demo.Tables.Product;
+import com.example.demo.entity.Cart;
+import com.example.demo.entity.LineItem;
+import com.example.demo.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

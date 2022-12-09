@@ -1,5 +1,6 @@
-package com.example.demo.Tables;
+package com.example.demo.entity;
 import javax.persistence.*;
+
 @Entity
 @Table
 public class Customer {
