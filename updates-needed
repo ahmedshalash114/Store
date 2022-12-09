@@ -1,0 +1,11 @@
+
+Well Done. 
+
+1:- first we need to make packages with small letter at the first and we are following some busseniss words you will learn by the time 
+
+
+2:- instead of using Service Classes we need to specify interface first and add service impl for it ,  it will be much better and we can make use of it later 
+
+3:- you can use @auto wired annotation direct instead of constuctor 
+
+
